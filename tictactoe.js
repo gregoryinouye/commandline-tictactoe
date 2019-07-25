@@ -1,21 +1,40 @@
-class Board {
-  constructor() {
-    this.nextMove = 'X';
-    this.state = [];
-  };
+const readline = require('readline');
 
-  drawBoard() {
-    console.log(`      |      |      \n${this.state[0] === undefined ? '      ' : this.state[0]}|${this.state[1] === undefined ? '      ' : this.state[1]}|${this.state[2] === undefined ? '      ' : this.state[2]}\n      |      |      \n------+------+------\n      |      |      \n${this.state[3] === undefined ? '      ' : this.state[3]}|${this.state[4] === undefined ? '      ' : this.state[4]}|${this.state[5] === undefined ? '      ' : this.state[5]}\n      |      |      \n------+------+------\n      |      |      \n${this.state[6] === undefined ? '      ' : this.state[6]}|${this.state[7] === undefined ? '      ' : this.state[7]}|${this.state[8] === undefined ? '      ' : this.state[8]}\n      |      |      `);
-  }
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-  addO(square) {
-    this.state[square] = 'O';
-  }
+// start game
+//   create board
+//   player one choose x or o
+//   enter name
+// player one moves
+// check for victory/draw
+//   display message
+//   otherwise continue moves
 
-  addX(square) {
-    this.state[square] = 'X';
-  }
-
+const board = {
+  1: ' ',
+  2: ' ',
+  3: ' ',
+  4: ' ',
+  5: ' ',
+  6: ' ',
+  7: ' ',
+  8: ' ',
+  9: ' ',
 };
 
-const game = new Board;
+let playerOne = 'x';
+let playerTwo = 'o';
+
+function startGame() {
+  renderBoard(board);
+}
+
+function renderBoard(board) {
+  console.log(` ${board[1]} | ${board[2]} | ${board[3]} \n-----------\n ${board[4]} | ${board[5]} | ${board[6]} \n-----------\n ${board[7]} | ${board[8]} | ${board[9]} `);
+}
+
+startGame();
