@@ -17,25 +17,24 @@ const rl = readline.createInterface({
 
 let playerOne = 'x';
 let playerTwo = 'o';
-let winner = null;
 let isPlayerOneToMove = true;
 
-const board = {
-  1: ' ',
-  2: ' ',
-  3: ' ',
-  4: ' ',
-  5: ' ',
-  6: ' ',
-  7: ' ',
-  8: ' ',
-  9: ' ',
-};
+let board;
 
 function startGame() {
-
+  board = {
+    1: ' ',
+    2: ' ',
+    3: ' ',
+    4: ' ',
+    5: ' ',
+    6: ' ',
+    7: ' ',
+    8: ' ',
+    9: ' ',
+  };
   renderBoard();
-  getMove(isPlayerOneToMove ? playerOne : playerTwo);
+  getMove();
 
   // isPlayerOneToMove = !isPlayerOneToMove;
   // renderBoard(board);
@@ -47,29 +46,50 @@ function renderBoard() {
   console.log(`   ${board[1]} | ${board[2]} | ${board[3]} \n  -----------\n   ${board[4]} | ${board[5]} | ${board[6]} \n  -----------\n   ${board[7]} | ${board[8]} | ${board[9]} `);
 };
 
-function getMove(player) {
+function getMove() {
+  const player = isPlayerOneToMove ? playerOne : playerTwo;
   rl.question('Please select a square (1-9): ', answer => {
     if (board[answer] === ' ') {
       board[answer] = player;
       isPlayerOneToMove = !isPlayerOneToMove;
-      rl.close();
       renderBoard();
+      checkGameStatus();
     } else {
       console.log('Invalid selection. Please try again!');
       renderBoard();
-      getMove(player);
+      getMove();
     }
   });
 };
 
 function checkGameStatus() {
-  // check for win
-  // if no win but board is full, draw game
-  // otherwise call player turn
+  if ((board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')
+    || (board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')
+    || (board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')
+    || (board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')
+    || (board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')
+    || (board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')
+    || (board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')
+    || (board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')) {
+      // need to specify winner in gameOver call
+      gameOver(null);
+    } else if (Object.keys(board).every(element => board[element] !== ' ')) {
+    gameOver(null);
+  } else {
+    getMove();
+  }
 }
 
 function gameOver(winner) {
-  winner === null ? console.log('Game is drawn!') : console.log(`Player ${!isPlayerOneToMove ? playerOne : playerTwo} wins!`);
-}
+  winner === null ? console.log('Game is drawn!') : console.log(`Player ${winner} wins!`);
+  rl.question('Play again? (Y/N): ', answer => {
+    answer = answer.toLowerCase();
+    if (answer === 'y' || answer === 'yes') {
+      startGame();
+    } else {
+      rl.close();
+    }
+  });
+};
 
 startGame();
