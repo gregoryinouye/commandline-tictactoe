@@ -63,16 +63,17 @@ function getMove() {
 };
 
 function checkGameStatus() {
-  if ((board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')
-    || (board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')
-    || (board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')
-    || (board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')
-    || (board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')
-    || (board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')
-    || (board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')
-    || (board[1] === board[2] && board[2] === board[3] && board[1] !== ' ')) {
+  let player = !isPlayerOneToMove ? playerOne : playerTwo;
+  if ((board[1] === player && board[2] === player && board[3] === player)
+    || (board[4] === player && board[5] === player && board[6] === player)
+    || (board[7] === player && board[8] === player && board[9] === player)
+    || (board[1] === player && board[4] === player && board[7] === player)
+    || (board[2] === player && board[5] === player && board[8] === player)
+    || (board[3] === player && board[6] === player && board[9] === player)
+    || (board[1] === player && board[5] === player && board[9] === player)
+    || (board[7] === player && board[5] === player && board[9] === player)) {
       // need to specify winner in gameOver call
-      gameOver(null);
+      gameOver(player);
     } else if (Object.keys(board).every(element => board[element] !== ' ')) {
     gameOver(null);
   } else {
